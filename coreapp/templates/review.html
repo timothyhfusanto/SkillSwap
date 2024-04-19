@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <!-- Breadcrumb -->
+    <section class="w-breadcrumb-area" style="background: url('{% static 'assets/img/common/breadcrumb-bg.png' %}') no-repeat center center/cover;">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="position-relative z-2" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="linear">
+                        <h2 class="section-title-light mb-2">Review Listing</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb w-breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'service_listing' %}">Services</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Review Listing</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb End -->
+
+    <!-- Review Listing Section -->
+    <section class="py-110 bg-offWhite">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <div class="bg-white p-5 rounded-4 service-details-content">
+                        <h2 class="service-details-title fw-bold mb-4">{{ listing.nameofservice }}</h2>
+                        <p class="text-dark-200 mb-4">{{ listing.details }}</p>
+
+                        <!-- Review Form -->
+                        <form method="post" class="mb-4">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="text" class="form-label">Your Review</label>
+                                <textarea class="form-control" id="text" name="text" rows="4"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Rating (1-5)</label>
+                                <input type="number" class="form-control" id="rating" name="rating" min="1" max="5">
+                            </div>
+                            <button type="submit" class="w-btn-primary" style="background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 8px;">Submit Review</button>
+                        </form>
+                        <!-- End Review Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Review Listing Section End -->
+</main>
+
+{% endblock %}

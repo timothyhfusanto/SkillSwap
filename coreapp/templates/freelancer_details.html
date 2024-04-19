@@ -1,0 +1,274 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main Start-->
+    <main>
+      <!-- Breadcrumb -->
+      <section
+        class="w-breadcrumb-area"
+        style="
+          background: url({% static 'assets/img/common/com3.jpg'%}) no-repeat
+            center center/cover;
+        "
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-auto">
+              <div
+                class="position-relative z-2"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="linear"
+              >
+                <h2 class="section-title-light mb-2">Freelancer Details</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb w-breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Freelancer Details
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Breadcrumb End -->
+
+      <!-- Freelancer Details -->
+      <section class="bg-offWhite py-110">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3">
+              <aside
+                class="freelancer-details-sidebar d-flex flex-column gap-4"
+              >
+                <div
+                  class="freelancer-sidebar-card p-4 rounded-4 bg-white position-relative"
+                >
+
+                  <div
+                    class="freelancer-sidebar-card-header d-flex flex-column justify-content-center align-items-center py-4"
+                  >
+                    <img
+                      src="{{freelancer.image.url}}"
+                      class="freelancer-avatar rounded-circle mb-4"
+                      alt=""
+                    />
+                    <h3 class="fw-bold freelancer-name text-dark-300 mb-2">
+                      {{freelancer.name}}
+                    </h3>
+                    <p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="11"
+                        viewBox="0 0 12 11"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.1141 4.15628C11.0407 3.92385 10.8406 3.75929 10.6048 3.73731L7.38803 3.43649L6.11676 0.370622C6.0229 0.145376 5.80934 0 5.57163 0C5.33392 0 5.12027 0.145376 5.02701 0.370622L3.75574 3.43649L0.538508 3.73731C0.302669 3.75973 0.102963 3.92429 0.0291678 4.15628C-0.0442024 4.3887 0.0235566 4.64364 0.201923 4.80478L2.63351 7.0011L1.91656 10.2539C1.8641 10.493 1.95422 10.7403 2.14687 10.8838C2.25042 10.9613 2.37208 11 2.49417 11C2.59908 11 2.70407 10.9713 2.79785 10.9135L5.57163 9.20504L8.3449 10.9135C8.54835 11.0387 8.80417 11.0272 8.99639 10.8838C9.18904 10.7403 9.27916 10.493 9.22671 10.2539L8.50975 7.0011L10.9413 4.80478C11.1196 4.64364 11.1875 4.38923 11.1141 4.15628Z"
+                          fill="#06131C"
+                        />
+                      </svg>
+                      <span class="text-dark-300"> {{average_rating}}</span>
+                      <span class="text-dark-200"> ({{review_count}} Reviews)</span>
+                    </p>
+                  </div>
+                  
+                  <ul class="py-4">
+                    <li
+                      class="py-1 d-flex justify-content-between align-items-center"
+                    >
+                      <p class="text-dark-200">Major:</p>
+                      <p class="text-dark-300 fw-medium">{{freelancer.major}}</p>
+                    </li>
+                    <li
+                      class="py-1 d-flex justify-content-between align-items-center"
+                    >
+                      <p class="text-dark-200">Member Since:</p>
+                      <p class="text-dark-300 fw-medium">{{freelancer.created|date:"F d, Y"}}</p>
+                    </li>
+                    <li
+                      class="py-1 d-flex justify-content-between align-items-center"
+                    >
+                      <p class="text-dark-200">Academic Year:</p>
+                      <p class="text-dark-300 fw-medium">{{freelancer.academicYear}}</p>
+                    </li>
+                    <li
+                      class="py-1 d-flex justify-content-between align-items-center"
+                    >
+                      <p class="text-dark-200">Phone:</p>
+                      <p class="text-dark-300 fw-medium">{{freelancer.phoneNum}}</p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="freelancer-sidebar-card p-4 rounded-4 bg-white">
+                  <div class="freelancer-single-info border-bottom pb-4">
+                    <h4
+                      class="freelancer-sidebar-title text-dark-300 fw-semibold"
+                    >
+                      About Description
+                    </h4>
+                    <p class="text-dark-200 fs-6">
+                      {{freelancer.description}}
+                    </p>
+                  </div>
+                </div>
+              </aside>
+            </div>
+            <div class="col-lg-9 mt-4 mt-lg-0">
+                <!-- Tab Nav -->
+                <div
+                  class="bg-white d-flex gap-3 p-4 freelancer-tab mb-4"
+                  id="nav-tab"
+                  role="tablist"
+                >
+                  <button class="dashboard-tab-btn active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">
+                    Service Listing
+                  </button>
+                  <button class="dashboard-tab-btn" id="nav-active-tab" data-bs-toggle="tab" data-bs-target="#nav-active" type="button" role="tab" aria-controls="nav-active" aria-selected="false">
+                    SkillSwap Listing
+                  </button>
+                </div>
+
+                <div class="bg-white freelancer-tab-content">
+                  <div class="tab-content">
+                    <!-- Services -->
+                    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                      <div class="row g-4">
+                        <article class="col-xl-4 col-md-6">
+                          {% for listing in listings_owned %}
+                          <div class="service-card bg-white w-shadow">
+                            <div class="position-relative">
+                              <img
+                                src="{{listing.image.url}}"
+                                class="recently-view-card-img w-100"
+                                style="width:253px; height:200px"
+                                alt=""
+                              />
+                            </div>
+                            <div class="service-card-content">
+                              <div
+                                class="d-flex align-items-center justify-content-between"
+                              >
+                                <div>
+                                  <h3 class="service-card-price fw-bold">
+                                    ${{listing.hourlyCharge}}
+                                  </h3>
+                                </div>
+                                <div class="d-flex align-items-center gap-1">
+                                  
+                                
+                                </div>
+                              </div>
+                              <h3 class="service-card-title fw-semibold">
+                                <a href="{% url 'service_detail' listing.id %}">
+                                  {{listing.nameofservice}}
+                                </a>
+                              </h3>
+                              <div
+                                class="d-flex align-items-center service-card-author"
+                              >
+                                <img
+                                  src="{{listing.student_user.image.url}}"
+                                  class="service-card-author-img"
+                                  alt=""
+                                />
+                                <a href="#" class="service-card-author-name"
+                                  >{{listing.student_user.name}}</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </article>
+                      </div>
+                    </div>
+
+                    <!-- Skillswap -->
+                    <div class="tab-pane fade" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
+                      <div class="row g-4">
+                        <article class="col-xl-4 col-md-6" style="display:flex">
+                          {% for listing in skillswap_owned %}
+                          <div class="service-card bg-white w-shadow">
+                            <div class="position-relative">
+                              <img
+                                src="{{listing.image.url}}"
+                                class="recently-view-card-img w-100"
+                                style="width:253px; height:200px"
+                                alt=""
+                              />
+                            </div>
+                            <div class="service-card-content">
+                              <div
+                                class="d-flex align-items-center justify-content-between"
+                              >
+                                <div>
+                                  <h3 class="service-card-price fw-bold">
+                                    {{listing.skill_offered}}
+                                  </h3>
+                                </div>
+                                <div class="d-flex align-items-center gap-1">
+                                  
+                                
+                                </div>
+                              </div>
+                              <h3 class="service-card-title fw-semibold">
+                                <a href="{% url 'skillswap_detail' listing.id %}">
+                                  {{listing.nameofservice}}
+                                </a>
+                              </h3>
+                              <div
+                                class="d-flex align-items-center service-card-author"
+                              >
+                                <img
+                                  src="{{listing.student_user.image.url}}"
+                                  class="service-card-author-img"
+                                  alt=""
+                                />
+                                <div>
+                                  <a href="#" class="service-card-author-name"
+                                    >{{listing.student_user.name}}</a
+                                  >
+                                  <div>
+                                    Skill Wanted: {{listing.optional_skill_wanted}}
+                                  </div>
+                                </div>
+                                
+                                
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </article>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Freelancer Details End -->
+    </main>
+    <!-- Main End -->
+    <script>
+      function toggleTab(tabId) {
+        document.querySelectorAll('.tab-pane').forEach(function(tab) {
+            tab.classList.remove('show', 'active');
+        });
+        document.getElementById(tabId).classList.add('show', 'active');
+      }
+
+      document.getElementById('nav-all-tab').addEventListener('click', function() {
+          toggleTab('nav-all');
+      });
+      document.getElementById('nav-active-tab').addEventListener('click', function() {
+          toggleTab('nav-active');
+      });
+  </script>
+{% endblock %}

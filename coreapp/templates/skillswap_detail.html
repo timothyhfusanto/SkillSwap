@@ -1,0 +1,370 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .star-rating {
+    white-space: nowrap;
+  }
+  .star-rating [type="radio"] {
+    appearance: none;
+  }
+  .star-rating i {
+    font-size: 1.2em;
+    transition: 0.3s;
+  }
+
+  .star-active {
+    color: #faec1b;
+  }
+  
+  .star-rating label:is(:hover, :has(~ :hover)) i {
+    transform: scale(1.35);
+    color: #fffdba;
+    animation: jump 0.5s calc(0.3s + (var(--i) - 1) * 0.15s) alternate infinite;
+  }
+  .star-rating label:has(~ :checked) i {
+    color: #faec1b;
+    text-shadow: 0 0 2px #ffffff, 0 0 10px #ffee58;
+  }
+  
+  @keyframes jump {
+    0%,
+    50% {
+      transform: translatey(0) scale(1.35);
+    }
+    100% {
+      transform: translatey(-15%) scale(1.35);
+    }
+  }
+</style>
+<main>
+      <!-- Breadcrumb -->
+      <section
+        class="w-breadcrumb-area"
+        style="
+          background: url({% static 'assets/img/common/com2.jpg'%}) no-repeat
+            center center/cover;
+        "
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-auto">
+              <div
+                class="position-relative z-2"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="linear"
+              >
+                <h2 class="section-title-light mb-2">SkillSwap Details</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb w-breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      SkillSwap Details
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Breadcrumb End -->
+
+      <!-- Services Details Start -->
+      <section class="py-110 bg-offWhite">
+        <div class="container">
+          {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <i class="{% if message.tags == 'success'%} fa-solid fa-circle-check {% else %} fa-solid fa-triangle-exclamation {% endif %}"></i> {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+          {% endif %}
+          <div class="row">
+            <!-- Left -->
+            <div class="col-xl-9">
+              <!-- Slider -->
+              <div class="bg-white service-details-content">
+                <div class="swiper mb-3">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="job-details-slider-img">
+                        <img
+                          src="{{listing.image.url}}"
+                          class="img-fluid w-100"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mt-40">
+                  <h2 class="service-details-title fw-bold mb-4">
+                    {{ listing.nameofservice }}
+                  </h2>
+                  <h3 class="service-details-subtitle fw-bold mb-3">
+                    About This SkillSwap Offer:
+                  </h3>
+                  <p class="text-dark-200 mb-4">
+                    {{ listing.details }}
+                  </p>
+                  <h4
+                    class="fw-semibold text-dark-300 text-18 fw-semibold mb-2"
+                  >
+                    Skill I Offer:
+                  </h4>
+                  <ul class="list-group border-0">
+                    <li class="list-group-item border-0 p-0">{{ listing.skill_offered }}</li>
+                  </ul>
+                  <br/>
+                  <h4
+                    class="fw-semibold text-dark-300 text-18 fw-semibold mb-2"
+                  >
+                    Skill I Am Looking For:
+                  </h4>
+                  <ul class="list-group border-0">
+                    <li class="list-group-item border-0 p-0">{{ listing.optional_skill_wanted }}</li>
+                  </ul>
+                </div>
+                <div class="mt-4 d-flex justify-content-center">
+                  {% if request.user == listing.student_user %}
+                      <a href="#" class="w-btn-primary-lg mr-3" style="margin-right:5px;">Delete Listing</a>
+                      <a href="{% url 'my_job' %}" class="w-btn-primary-lg" style="margin-left:5px;">View SkillSwap Offers</a>
+                  {% else %}
+                      <a href="{% url 'offer_skillswap' listing_id=listing.id %}" class="w-btn-primary-lg">Offer SkillSwap</a>
+                  {% endif %}
+                </div>
+              </div>
+              <!-- Review -->
+              <div class="pt-80">
+                <h3 class="service-details-title text-dark-200 fw-bold mb-30">
+                  Reviews ({{reviews.count}}) <i class="fa-solid fa-star"></i> {{average_rating}}
+                </h3>
+                <div class="d-flex flex-column gap-4">
+                  <!-- Create Review Form -->
+                  {% if user.is_authenticated and has_offered and not has_reviewed %}
+                  <div class="review-card bg-white mb-4">
+                    <form method="POST">
+                      {% csrf_token %}
+                      <h4 class="text-dark-200 mb-3">Create a new review</h4>
+                      <div class="mb-3">
+                        <span class="star-rating" style="font-size:20px">
+                          <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
+                          <input type="radio" name="rating" id="rate-1" value="1">
+                          <label for="rate-2" style="--i:2"><i class="fa-solid fa-star"></i></label>
+                          <input type="radio" name="rating" id="rate-2" value="2">
+                          <label for="rate-3" style="--i:3"><i class="fa-solid fa-star"></i></label>
+                          <input type="radio" name="rating" id="rate-3" value="3">
+                          <label for="rate-4" style="--i:4"><i class="fa-solid fa-star"></i></label>
+                          <input type="radio" name="rating" id="rate-4" value="4">
+                          <label for="rate-5" style="--i:5"><i class="fa-solid fa-star"></i></label>
+                          <input type="radio" name="rating" id="rate-5" value="5" checked>
+                        </span>
+                      </div>
+                      
+                      <div class="form-floating mb-3">
+                        {{form.text}}
+                        <label for="text">Comment</label>
+                      </div>
+                      <div class="mt-4">
+                        <button class="w-btn-secondary-sm" type="submit" style="float:right">Submit 
+                          <svg
+                          width="14"
+                          height="10"
+                          viewBox="0 0 14 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          >
+                          <path
+                            d="M9 9L13 5M13 5L9 1M13 5L1 5"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          </svg>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Already reviewed -->
+                  {% elif user.is_authenticated and has_reviewed and has_offered %}
+                  <div class="review-card bg-white mb-4">
+                    <form method="POST" action="{% url 'delete_review_skillswap' listing.id has_reviewed.id %}">
+                      {% csrf_token %}
+                      <div class="d-flex justify-content-between mb-3">
+                        <h4 class="text-dark-200 mb-4">Your review</h4>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Review</button>
+                      </div>
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure to delete your review?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="d-flex justify-content-between mb-3">
+                        <span class="star-rating" style="font-size:20px">
+                          <i class="fa-solid fa-star {% if has_reviewed.rating > 0 %} star-active {% endif %}" ></i>
+                          <i class="fa-solid fa-star {% if has_reviewed.rating > 1 %} star-active {% endif %}"></i>
+                          <i class="fa-solid fa-star {% if has_reviewed.rating > 2 %} star-active {% endif %}"></i>
+                          <i class="fa-solid fa-star {% if has_reviewed.rating > 3 %} star-active {% endif %}"></i>
+                          <i class="fa-solid fa-star {% if has_reviewed.rating > 4 %} star-active {% endif %}"></i>
+                        </span>
+                        <span class="text-dark-200 fs-6">{{ has_reviewed.date|date:"d M, Y h:i A" }}</span>
+                      </div>
+                      
+                      <p class="text-dark-200 fs-6">
+                        {{ has_reviewed.text }}
+                      </p>
+                      <div
+                        class="d-flex align-items-center buyer-info pb-30 justify-content-between mt-4"
+                      >
+                        <div class="d-flex align-items-center gap-3">
+                          <div>
+                            <img
+                              src="{{has_reviewed.creator.image.url}}"
+                              class="rounded-circle"
+                              style="width:64px; height:64px"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <h4 class="text-18 text-dark-300 fw-semibold">
+                              {{ has_reviewed.creator.name }}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  {% endif %}
+                  <!-- End Review Form-->
+                  <!-- Buyer Review -->
+                  {% if reviews %}
+                  {% for review in reviews %}
+                  <div class="review-card bg-white">
+                    <div>
+                      <div class="d-flex justify-content-between mb-3">
+                        <span class="star-rating" style="font-size:20px">
+                          <i class="fa-solid fa-star {% if review.rating > 0 %} star-active {% endif %}" ></i>
+                          <i class="fa-solid fa-star {% if review.rating > 1 %} star-active {% endif %}"></i>
+                          <i class="fa-solid fa-star {% if review.rating > 2 %} star-active {% endif %}"></i>
+                          <i class="fa-solid fa-star {% if review.rating > 3 %} star-active {% endif %}"></i>
+                          <i class="fa-solid fa-star {% if review.rating > 4 %} star-active {% endif %}"></i>
+                        </span>
+                        <span class="text-dark-200 fs-6">{{ review.date|date:"d M, Y h:i A" }}</span>
+                      </div>
+                      <p class="text-dark-200 fs-6">
+                        {{ review.text }}
+                      </p>
+                      <div
+                        class="d-flex align-items-center buyer-info pb-30 justify-content-between mt-4"
+                      >
+                        <div class="d-flex align-items-center gap-3">
+                          <div>
+                            <img
+                              src="{{review.creator.image.url}}"
+                              class="rounded-circle"
+                              style="width:64px; height:64px"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <h4 class="text-18 text-dark-300 fw-semibold">
+                              {{ review.creator.name }}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  {% endfor %}
+                  {% else %}
+                    <div class="review-card bg-white">
+                      <p>No reviews yet</p>
+                    </div>
+                  {% endif %}
+                  
+                </div>
+              </div>
+            </div>
+            <!-- Right -->
+            <div class="col-xl-3 mt-30 mt-xl-0">
+              <aside class="d-flex flex-column gap-4">
+                <!--Card -->
+                <div
+                  class="freelancer-sidebar-card p-4 rounded-4 bg-white position-relative"
+                >
+                  <div
+                    class="freelancer-sidebar-card-header border-bottom d-flex flex-column justify-content-center align-items-center py-4"
+                  >
+                    <img
+                      src="{{ listing.student_user.image.url }}"
+                      class="freelancer-avatar rounded-circle mb-4"
+                      alt=""
+                    />
+                    <h3 class="fw-bold freelancer-name text-dark-300 mb-2">
+                      {{ listing.student_user.name }}
+                    </h3>
+                  </div>
+                  <div style="padding:12px;">
+                    <div>
+                      <p class="text-dark-300">Major: &nbsp;<span class="text-dark-200">{{ listing.student_user.major }}</span></p>
+                    </div>
+                    <div>
+                      <p class="text-dark-300">Academic Year: &nbsp;<span class="text-dark-200">{{ listing.student_user.academicYear }}</span></p>
+                    </div>
+                    <div>
+                      <p class="text-dark-300">Age: &nbsp;<span class="text-dark-200">{{ listing.student_user.age }}</span></p>
+                    </div>
+                  </div>
+
+                  <div class="d-grid">
+                    <a href="{% url 'freelancer_details' listing.student_user.id %}" class="w-btn-black-lg w-100">
+                      {% if listing.student_user == request.user %}
+                        My Profile
+                      {% else %}
+                        Contact Me
+                      {% endif %}
+    
+                      <svg
+                        width="14"
+                        height="10"
+                        viewBox="0 0 14 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 9L13 5M13 5L9 1M13 5L1 5"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Services Details End -->
+    </main>
+{% endblock %}

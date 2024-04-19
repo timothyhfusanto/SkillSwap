@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- GLightBox -->
+    <link rel="stylesheet" href="{% static 'assets/css/glightbox.min.css' %}" />
+    <!-- Aos -->
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}" />
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" />
+    <!-- Quill CSS -->
+    <link href="{% static 'assets/css/quill.core.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/quill.snow.css' %}" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Font-awesome CSS -->
+    <link href="{% static 'assets/css/font-awesome-all.min.css' %}" rel="stylesheet" />
+    <!-- Swiper CSS -->
+    <link href="{% static 'assets/css/swiper-bundle.min.css' %}" rel="stylesheet" />
+    <!-- Main CSS -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+    <!-- Responsive CSS -->
+    <link href="{% static 'assets/css/resposive.css' %}" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+
+<body>
+    <!-- Menu Start -->
+    <header class="header-primary">
+        <div class="container">
+            <nav class="navbar navbar-expand-xl justify-content-between">
+                <a href="/">
+                    <img src="{% static 'assets/img/logo/logo.webp' %}" style="width:100px; height:100px" alt="" />
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="d-block d-xl-none">
+                            <div class="logo">
+                                <a href="index.html"
+                                ><img src="{% static 'assets/img/logo/logo.webp' %}" style="width:100px; height:100px" alt=""
+                                /></a>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside" aria-expanded="false">Browse</a>
+                            <div class="dropdown-menu">
+                                <div class="d-flex flex-column flex-xl-row">
+                                    <ul>
+                                        <li>
+                                            <a href="/service_listing" class="dropdown-item"><span>Service
+                                                    Listings</span></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/skillswap_listing" class="dropdown-item"><span>SkillSwap
+                                                    Listings</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About Us</a>
+                        </li>
+
+                    </ul>
+                    {% if user.is_authenticated %}
+                        <div class="align-items-center d-none d-lg-flex">
+                            <a href="/dashboard" class="w-btn-secondary-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.5 7.55556C8.55134 7.55556 10.2143 5.86419 10.2143 3.77778C10.2143 1.69137 8.55134 0 6.5 0C4.44866 0 2.78571 1.69137 2.78571 3.77778C2.78571 5.86419 4.44866 7.55556 6.5 7.55556ZM6.5 17C10.0899 17 13 15.3086 13 13.2222C13 11.1358 10.0899 9.44444 6.5 9.44444C2.91015 9.44444 0 11.1358 0 13.2222C0 15.3086 2.91015 17 6.5 17Z"
+                                        fill="white" />
+                                </svg>Dashboard</a>
+                        </div>
+                    {% else %}
+                        <div class="align-items-center d-none d-lg-flex">
+                            <a href="/accounts/sign-in" class="w-btn-secondary-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.5 7.55556C8.55134 7.55556 10.2143 5.86419 10.2143 3.77778C10.2143 1.69137 8.55134 0 6.5 0C4.44866 0 2.78571 1.69137 2.78571 3.77778C2.78571 5.86419 4.44866 7.55556 6.5 7.55556ZM6.5 17C10.0899 17 13 15.3086 13 13.2222C13 11.1358 10.0899 9.44444 6.5 9.44444C2.91015 9.44444 0 11.1358 0 13.2222C0 15.3086 2.91015 17 6.5 17Z"
+                                        fill="white" />
+                                </svg>Login</a>
+                        </div>
+                    {% endif %} 
+                </div>
+                <div class="navbar-right d-flex align-items-center gap-4">
+                    <button
+                    class="navbar-toggler d-block d-xl-none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                <span></span>
+                </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Menu End -->
+    {% block content %}
+    
+    {% endblock %}
+        <!-- Footer  -->
+    <footer class="footer-area">
+        <div class="bg-dark-300 pt-110">
+            <div class="container">
+                <!-- Newsletter -->
+                <div class="footer-newsletter pb-60" data-aos="fade-right" data-aos-duration="1000"
+                    data-aos-easing="linear">
+                    <div class="row justify-content-between row-gap-4">
+                        <div class="col-lg-12 col-xl-6">
+                            <div>
+                                <a href="index.html" class="d-block mb-4">
+                                    <img src="{% static 'assets/img/logo/logo-dark.png' %}" style="width:150px; height:150px;" alt="" />
+                                </a>
+                                <p class="text-white">
+                                    At SkillSwap, our mission is to connect individuals seeking freelance services with talented student freelancers eager 
+                                    to showcase their skills. Our platform empowers students to list their services, ranging from tutoring and graphic design 
+                                    to programming and writing, allowing them to build their portfolios and earn income.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright py-4">
+            <div class="container">
+                <div class="row row-gap-4 justify-content-center">
+                    <div class="col-auto">
+                        <div>
+                            <p class="text-white">
+                                Copyright @2024 All rights reserved SkillSwap
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Category Modal -->
+    <!-- Modal End -->
+
+<!-- Jquery -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <!-- Migrate  -->
+    <script src="assets/js/jquery-migrate.min.js"></script>
+    <!-- Quill Editor -->
+    <script src="{% static 'assets/js/quill.js' %}"></script>
+    <!-- CounterUp  -->
+    <script src="{% static 'assets/js/jquery-migrate.min.js' %}"></script>
+    <!-- CounterUp  -->
+    <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+    <!-- Waypoint -->
+    <script src="{% static 'assets/js/waypoints.min.js' %}"></script>
+    <!-- Nice Select -->
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <!-- Isotope -->
+    <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+    <!-- ImgLoaded -->
+    <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- AOS -->
+    <script src="{% static 'assets/js/aos.js' %}"></script>
+    <!-- GLightBox -->
+    <script src="{% static 'assets/js/glightbox.min.js' %}"></script>
+    <!-- Popper -->
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Swiper -->
+    <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+    <!-- Main -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+</html>

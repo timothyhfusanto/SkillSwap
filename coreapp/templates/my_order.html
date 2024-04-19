@@ -1,0 +1,166 @@
+{% extends 'dashboardbase.html' %}
+{% load static %}
+{% block content %}
+
+<main class="dashboard-main min-vh-100">
+    <div class="d-flex flex-column gap-4">
+        <div class="d-flex flex-column flex-md-row gap-4 align-items-md-center justify-content-between">
+            <div>
+                <h3 class="text-24 fw-bold text-dark-300 mb-2">My Orders/Outgoing Offers</h3>
+                <ul class="d-flex align-items-center gap-2">
+                    <li class="text-dark-200 fs-6">Dashboard</li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="11" viewBox="0 0 5 11" fill="none">
+                            <path d="M1 10L4 5.5L1 1" stroke="#5B5B5B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </li>
+                    <li class="text-lime-300 fs-6">My Orders/Offers</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Content -->
+        <div>
+            <!-- Tab Nav -->
+            <nav>
+                <div class="d-flex flex-wrap gap-3 align-items-center" id="nav-tab" role="tablist">
+                    <button class="dashboard-tab-btn active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Service Listing</button>
+                    <button class="dashboard-tab-btn" id="nav-empty-tab" data-bs-toggle="tab" data-bs-target="#nav-empty" type="button" role="tab" aria-controls="nav-empty" aria-selected="false">SkillSwap</button>
+                </div>
+            </nav>
+            <!-- Tab Content -->
+            <div class="tab-content mt-4" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
+                    {% if user_purchases %}
+                    <!-- All -->
+                    <div>
+                        <div class="overflow-x-auto">
+                            <div class="w-100">
+                                <table class="w-100 dashboard-table">
+                                    <thead class="pb-3">
+                                        <tr>
+                                            <th scope="col" class="ps-4">Project Name</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Freelancer</th>
+                                            <th scope="col">Date of Purchase</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iterate through user's purchases and display them -->
+                                        {% for purchase in user_purchases %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex gap-3 align-items-center project-name">
+                                                    <div class="order-img">
+                                                        <img src="{{purchase.service_listing.image.url}}" alt=""/>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{% url 'service_detail' purchase.service_listing.id %}" class="text-dark-200 project-link">{{ purchase.service_listing.nameofservice }}</a>
+                                                        <!-- Add more details as needed -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-dark-200">${{ purchase.service_listing.hourlyCharge }}/h</td>
+                                            <td>
+                                                <span class="status-badge in-progress">{{ purchase.status }}</span>
+                                            </td>
+                                            <td class="text-dark-200">{{ purchase.service_listing.student_user }}</td>
+                                            <td class="text-dark-200">{{ purchase.date|date:"d M, Y h:i A" }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row justify-content-center">
+                        <div class="col-7">
+                            <div>
+                                <div class="bg-white p-5 rounded-3 d-flex justify-content-center align-items-center">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img src="{% static 'assets/img/dashboard/empty.png' %}" class="img-fluid mb-5" style="width:200px; height:200px" alt=""/>
+                                        <h3 class="text-24 fw-bold text-dark-300 m-2">Order Empty</h3>
+                                        <p class="fs-6 text-dark-200 text-center">You haven't made any purchases yet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- SkillSwap -->
+
+                <!-- Empty -->
+                <div class="tab-pane fade" id="nav-empty" role="tabpanel" aria-labelledby="nav-empty-tab" tabindex="0">
+
+                    <div class="tab-pane fade show active" id="nav-all-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
+                    {% if user_skillswap_offer %}
+                    <!-- All -->
+                    <div>
+                        <div class="overflow-x-auto">
+                            <div class="w-100">
+                                <table class="w-100 dashboard-table">
+                                    <thead class="pb-3">
+                                        <tr>
+                                            <th scope="col" class="ps-4">SkillSwap Name</th>
+                                            <th scope="col">Skill Offered</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Freelancer</th>
+                                            <th scope="col">Date of Purchase</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iterate through user's purchases and display them -->
+                                        {% for offer in user_skillswap_offer %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex gap-3 align-items-center project-name">
+                                                    <div class="order-img">
+                                                        <img src="{{offer.skillswap_listing.image.url}}" alt=""/>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{% url 'skillswap_detail' offer.skillswap_listing.id %}" class="text-dark-200 project-link">{{ offer.skillswap_listing.nameofservice }}</a>
+                                                        <!-- Add more details as needed -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-dark-200">{{ offer.skill_offered }}</td>
+                                            <td>
+                                                <span class="status-badge in-progress">{{ offer.status }}</span>
+                                            </td>
+                                            <td class="text-dark-200">{{ offer.skillswap_listing.student_user }}</td>
+                                            <td class="text-dark-200">{{ offer.date|date:"d M, Y h:i A" }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row justify-content-center">
+                        <div class="col-7">
+                            <div>
+                                <div class="bg-white p-5 rounded-3 d-flex justify-content-center align-items-center">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img src="{% static 'assets/img/dashboard/empty.png'%}" class="img-fluid mb-5" style="width:200px; height:200px" alt=""/>
+                                        <h3 class="text-24 fw-bold text-dark-300 m-2">Offer Empty</h3>
+                                        <p class="fs-6 text-dark-200 text-center">You haven't made any offers yet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- Complete -->
+
+                <!-- Close -->
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

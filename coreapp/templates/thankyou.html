@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #28a745; /* Green */
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            background-color: #28a745; /* Green */
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #218838; /* Darker Green */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You!</h1>
+        <p>Your purchase was successful.</p>
+        <p>You will be contacted regarding further details such as payment and the final product soon.</p>
+        <div class="button-container">
+            <a href="{% url 'home' %}" class="button">Back to Home</a>
+            <a href="{% url 'my_order' %}" class="button">View Your Orders</a>
+        </div>
+    </div>
+</body>
+</html>

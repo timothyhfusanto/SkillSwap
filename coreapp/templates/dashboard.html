@@ -1,0 +1,135 @@
+{% extends 'dashboardbase.html' %}
+{% load static %}
+{% block content %}
+
+<main class="dashboard-main min-vh-100">
+          <div class="d-flex flex-column gap-4">
+            <!-- Page Header -->
+            <div
+              class="d-flex gap-4 flex-column flex-md-row align-items-md-center justify-content-between"
+            >
+              <div>
+                <h3 class="text-24 fw-bold text-dark-300 mb-2">Dashboard</h3>
+                <ul class="d-flex align-items-center gap-2">
+                  <li class="text-dark-200 fs-6">Dashboard</li>
+                </ul>
+              </div>
+              <div>
+                <a href="/create_listing" class="w-btn-secondary-lg">
+                  + Create a New Service</a
+                >
+              </div>
+            </div>
+            <div class="row g-4">
+              <div class="col-xl col-md-6">
+                <div
+                  class="p-4 d-flex align-items-center dashobard-widget justify-content-between bg-white rounded-4"
+                >
+                  <div>
+                    <h3 class="dashboard-widget-title fw-bold text-dark-300">
+                      {{user_purchases}}
+                    </h3>
+                    <p class="text-18 text-dark-200">Total Order</p>
+                  </div>
+                  <div class="dashboard-widget-icon">
+                    <img src="{% static 'assets/img/dashboard/icon/icon-2.png' %}" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl col-md-6">
+                <div
+                  class="p-4 d-flex align-items-center dashobard-widget justify-content-between bg-white rounded-4"
+                >
+                  <div>
+                    <h3 class="dashboard-widget-title fw-bold text-dark-300">
+                      {{jobs_done}}
+                    </h3>
+                    <p class="text-18 text-dark-200">Completed Job</p>
+                  </div>
+                  <div class="dashboard-widget-icon">
+                    <img src="{% static 'assets/img/dashboard/icon/icon-3.png' %}" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl col-md-6">
+                <div
+                  class="p-4 d-flex align-items-center dashobard-widget justify-content-between bg-white rounded-4"
+                >
+                  <div>
+                    <h3 class="dashboard-widget-title fw-bold text-dark-300">
+                      {{jobs_active}}
+                    </h3>
+                    <p class="text-18 text-dark-200">Active Job</p>
+                  </div>
+                  <div class="dashboard-widget-icon">
+                    <img src="{% static 'assets/img/dashboard/icon/icon-4.png'%}" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Content -->
+            <div>
+              <h3 class="text-24 fw-bold text-dark-300 mb-2">Latest Jobs</h3>
+              <!-- Table -->
+              <div>
+                <div class="overflow-x-auto">
+                    <div class="w-100">
+                        <table class="w-100 dashboard-table">
+                            <thead class="pb-3">
+                                <tr>
+                                    <th scope="col" class="ps-4">Project Name</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Client</th>
+                                    <th scope="col">Client Contact</th>
+                                    <th scope="col">Date of Purchase</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Iterate through user's purchases and display them -->
+                                {% for jobs in user_jobs %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex gap-3 align-items-center project-name">
+                                            <div class="order-img">
+                                                <img src="{{jobs.service_listing.image.url}}" alt=""/>
+                                            </div>
+                                            <div>
+                                                <a href="{% url 'service_detail' jobs.service_listing.id %}" class="text-dark-200 project-link">{{ jobs.service_listing.nameofservice }}</a>
+                                                <!-- Add more details as needed -->
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-dark-200">${{ jobs.service_listing.hourlyCharge }}/h</td>
+                                    <td>
+                                        <span class="status-badge in-progress">{{ jobs.status }}</span>
+                                    </td>
+                                    <td class="text-dark-200">{{ jobs.client_user }}</td>
+                                    <td class="text-dark-200">{{ jobs.client_user.phoneNum }}</td>
+                                    <td class="text-dark-200">{{ jobs.date|date:"M d, Y h:m A"}}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if not user_jobs %}
+                          <div class="row justify-content-center">
+                            <div class="col-7">
+                                <div>
+                                    <div class="bg-white p-5 rounded-3 d-flex justify-content-center align-items-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <img src="{% static 'assets/img/dashboard/empty.png'%}" class="img-fluid mb-5" style="width:200px; height:200px" alt=""/>
+                                            <h3 class="text-24 fw-bold text-dark-300 m-2">Jobs Empty</h3>
+                                            <p class="fs-6 text-dark-200 text-center">Clients haven't made any purchases yet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+          </div>
+        </main>
+{% endblock %}

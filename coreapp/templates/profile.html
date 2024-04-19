@@ -1,0 +1,177 @@
+{% extends 'dashboardbase.html' %}
+{% load static %}
+{% block content %}
+
+<main class="dashboard-main min-vh-100">
+          <div class="d-flex flex-column gap-4">
+            <!-- Header -->
+            <div>
+              <h3 class="text-24 fw-bold text-dark-300 mb-2">
+                Profile Settings
+              </h3>
+              <ul class="d-flex align-items-center gap-2">
+                <li class="text-dark-200 fs-6">Dashboard</li>
+                <li>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="5"
+                    height="11"
+                    viewBox="0 0 5 11"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 10L4 5.5L1 1"
+                      stroke="#5B5B5B"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </li>
+                <li class="text-lime-300 fs-6">Profile Settings</li>
+              </ul>
+            </div>
+
+            <!-- Content -->
+            <div>
+              <div class="row justify-content-center">
+                <div class="col-xl-8">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="d-flex flex-column gap-4">
+                      <!-- Profile Info -->
+                      <div class="profile-info-card">
+                        <!-- Header -->
+                        <div class="profile-info-header">
+                          <h4 class="text-18 fw-semibold text-dark-300">
+                            Profile Info
+                          </h4>
+                        </div>
+                        <div class="profile-info-body bg-white">
+                          {% if messages %}
+                              {% for message in messages %}
+                                  <div class="alert alert-{{ message.tags }}">
+                                      {{ message }}
+                                  </div>
+                              {% endfor %}
+                          {% endif %}
+                          <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-container">
+                                    <label for="id_name" class="form-label">Name <span class="text-lime-300">*</span></label>
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-container">
+                                <label for="username" class="form-label"
+                                  >Username
+                                  <span class="text-lime-300">*</span></label
+                                >
+                                {{ form.username }}
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-container">
+                                <label for="major" class="form-label"
+                                  >Major
+                                  <span class="text-lime-300">*</span></label
+                                >
+                                {{ form.major }}
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-container">
+                                <label for="state" class="form-label"
+                                  >Academic Year
+                                  <span class="text-lime-300">*</span></label
+                                >
+
+                                {{ form.academicYear }}
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-container">
+                                <label for="email" class="form-label">
+                                  Email Address
+                                  <span class="text-lime-300">*</span></label
+                                >
+                                {{ form.email }}
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-container">
+                                <label for="description" class="form-label">
+                                  Description
+                                  <span class="text-lime-300"></span></label
+                                >
+                                {{ form.description }}
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-container">
+                                <label for="category" class="form-label"
+                                  >Age
+                                  <span class="text-lime-300">*</span></label
+                                >
+                                {{ form.age }}
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-container">
+                                <label for="phoneNum" class="form-label"
+                                  >Phone Number
+                                  <span class="text-lime-300">*</span></label
+                                >
+                                {{ form.phoneNum }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="gig-info-card">
+                        <!-- Header -->
+                        <div class="gig-info-header">
+                          <h4 class="text-18 fw-semibold text-dark-300">
+                            Upload Profile Photo
+                          </h4>
+                        </div>
+                        <div class="gig-info-body bg-white">
+                          <label for="image" class="form-label mb-3">Current Profile</label><br/>
+                          <img src="{{ user.image.url }}" class="rounded-circle mb-4" style="width:200px; height:200px"/><br/>
+                          {{form.image}}
+                        </div>
+                      </div>
+                      <!-- Profile Info -->
+                      <!-- Submit Btn -->
+                      <div class="d-flex align-items-center gap-4">
+                        <button type="submit" class="w-btn-secondary-lg">
+                          Save Now
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="10"
+                            viewBox="0 0 14 10"
+                            fill="none"
+                          >
+                            <path
+                              d="M9 9L13 5M13 5L9 1M13 5L1 5"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
+                        <button class="text-danger text-decoration-underline">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+{% endblock %}

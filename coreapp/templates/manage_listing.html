@@ -1,0 +1,134 @@
+{% extends 'dashboardbase.html' %}
+{% load static %}
+{% block content %}
+
+<main class="dashboard-main min-vh-100">
+    <div class="d-flex flex-column gap-4">
+        <nav>
+            <div class="d-flex flex-wrap gap-3 align-items-center" id="nav-tab" role="tablist">
+                <button class="dashboard-tab-btn active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">
+                    Service Listing
+                </button>
+                <button class="dashboard-tab-btn" id="nav-active-tab" data-bs-toggle="tab" data-bs-target="#nav-active" type="button" role="tab" aria-controls="nav-active" aria-selected="false">
+                    SkillSwap Listing
+                </button>
+            </div>
+        </nav>
+        <!-- Header -->
+        <div class="d-flex flex-column flex-md-row align-items-md-center gap-4 justify-content-between">
+            <div>
+                <h3 class="text-24 fw-bold text-dark-300 mb-2">Manage Listing</h3>
+                <ul class="d-flex align-items-center gap-2">
+                    <li class="text-dark-200 fs-6">Dashboard</li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="11" viewBox="0 0 5 11" fill="none">
+                            <path d="M1 10L4 5.5L1 1" stroke="#5B5B5B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </li>
+                    <li class="text-lime-300 fs-6">Manage Listing</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Content -->
+        {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <i class="{% if message.tags == 'success'%} fa-solid fa-circle-check {% else %} fa-solid fa-triangle-exclamation {% endif %}"></i> {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+          {% endif %}
+        <div class="tab-content">
+            <!-- Service Listing Tab -->
+            <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                <!-- Iterate over service listings -->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    {% for service_listing in service_listings %}
+                        <article class="col">
+                            <div class="service-card bg-white">
+                                <div class="position-relative">
+                                    <img src="{{service_listing.image.url}}" class="recently-view-card-img w-100" style="width:253px; height:200px" alt="">
+                                </div>
+                                <div class="service-card-content">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <h3 class="service-card-price fw-bold">${{ service_listing.hourlyCharge }}/h</h3>
+                                        </div>
+                                    </div>
+                                    <h3 class="service-card-title fw-semibold">
+                                        <a href="#"> {{ service_listing.nameofservice }}</a>
+                                    </h3>
+                                    <div class="d-flex align-items-center service-card-author style-two">
+                                        <img src="{{service_listing.student_user.image.url}}" class="service-card-author-img" alt="">
+                                        <a href="{% url 'freelancer_details' service_listing.student_user.id %}" class="service-card-author-name">{{service_listing.student_user.name}}</a>
+                                    </div>
+                                </div>
+                                <div class="px-3 pb-3 d-flex justify-content-between align-items-center mt-2">
+                                    <div>
+                                        <a href="{% url 'edit_service' service_listing.id %}" class="gig-edit-btn">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- SkillSwap Listing Tab -->
+            <div class="tab-pane fade" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
+              <!-- Iterate over skill swap listings -->
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                  {% for skill_swap_listing in skill_swap_listings %}
+                      <article class="col">
+                          <div class="service-card bg-white">
+                              <div class="position-relative">
+                                  <img src="{{skill_swap_listing.image.url}}" class="recently-view-card-img w-100" alt="">
+                                  
+                              </div>
+                              <div class="service-card-content">
+                                  <div class="d-flex align-items-center justify-content-between">
+                                      <div>
+                                          <h3 class="service-card-price fw-bold">{{ skill_swap_listing.skill_offered }}</h3>
+                                      </div>
+                                  </div>
+                                  <h3 class="service-card-title fw-semibold">
+                                      <a href="#"> {{ skill_swap_listing.nameofservice }}</a>
+                                  </h3>
+                                  <div class="d-flex align-items-center service-card-author style-two">
+                                      <img src="{{skill_swap_listing.student_user.image.url}}" class="service-card-author-img" alt="">
+                                      <a href="{% url 'freelancer_details' skill_swap_listing.student_user.id %}" class="service-card-author-name">{{ skill_swap_listing.student_user.name }}</a>
+                                  </div>
+                              </div>
+                              <div class="px-3 pb-3 d-flex justify-content-between align-items-center">
+                                  <div>
+                                    <a href="{% url 'edit_skillswap' skill_swap_listing.id %}" class="gig-edit-btn">Edit</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </article>
+                  {% endfor %}
+              </div>
+          </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Function to handle tab toggling
+    function toggleTab(tabId) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-pane').forEach(function(tab) {
+            tab.classList.remove('show', 'active');
+        });
+        // Show the selected tab
+        document.getElementById(tabId).classList.add('show', 'active');
+    }
+    // Add event listeners to tab buttons
+    document.getElementById('nav-all-tab').addEventListener('click', function() {
+        toggleTab('nav-all');
+    });
+    document.getElementById('nav-active-tab').addEventListener('click', function() {
+        toggleTab('nav-active');
+    });
+</script>
+
+{% endblock %}

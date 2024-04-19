@@ -1,0 +1,261 @@
+{% extends 'dashboardbase.html' %}
+{% load static %}
+{% block content %}
+
+<main class="dashboard-main min-vh-100">
+    <div class="d-flex flex-column gap-4">
+        <div class="d-flex flex-column flex-md-row gap-4 align-items-md-center justify-content-between">
+            <div>
+                <h3 class="text-24 fw-bold text-dark-300 mb-2">My Jobs/Incoming Offers</h3>
+                <ul class="d-flex align-items-center gap-2">
+                    <li class="text-dark-200 fs-6">Dashboard</li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="11" viewBox="0 0 5 11" fill="none">
+                            <path d="M1 10L4 5.5L1 1" stroke="#5B5B5B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </li>
+                    <li class="text-lime-300 fs-6">My Jobs</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Content -->
+        <div>
+            <!-- Tab Nav -->
+            <nav>
+                <div class="d-flex flex-wrap gap-3 align-items-center" id="nav-tab" role="tablist">
+                    <button class="dashboard-tab-btn active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Service Listing</button>
+                    <button class="dashboard-tab-btn" id="nav-empty-tab" data-bs-toggle="tab" data-bs-target="#nav-empty" type="button" role="tab" aria-controls="nav-empty" aria-selected="false">SkillSwap</button>
+                </div>
+            </nav>
+            <!-- Tab Content -->
+            <div class="tab-content mt-4" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
+                    {% if user_jobs %}
+                    <!-- All -->
+                    <div>
+                        <div class="overflow-x-auto">
+                            <div class="w-100">
+                                <table class="w-100 dashboard-table">
+                                    <thead class="pb-3">
+                                        <tr>
+                                            <th scope="col" class="ps-4">Project Name</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Client</th>
+                                            <th scope="col">Client Contact</th>
+                                            <th scope="col">Date of Purchase</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iterate through user's purchases and display them -->
+                                        {% for jobs in user_jobs %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex gap-3 align-items-center project-name">
+                                                    <div class="order-img">
+                                                        <img src="{{jobs.service_listing.image.url}}" alt=""/>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{% url 'service_detail' jobs.service_listing.id %}" class="text-dark-200 project-link">{{ jobs.service_listing.nameofservice }}</a>
+                                                        <!-- Add more details as needed -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-dark-200">${{ jobs.service_listing.hourlyCharge }}/h</td>
+                                            <td>
+                                                <span class="status-badge in-progress">{{ jobs.status }}</span>
+                                            </td>
+                                            <td class="text-dark-200">{{ jobs.client_user }}</td>
+                                            <td class="text-dark-200">{{ jobs.client_user.phoneNum }}</td>
+                                            <td class="text-dark-200">{{ jobs.date|date:"M d, Y h:m A"}}</td>
+                                            <td>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                    {% if jobs.status == 'In Progress' %}
+                                                        <button class="btn btn-success" style="border-radius: 10px; padding: 8px 16px; font-size: 14px; width: auto;" onclick="changeStatus('{{ jobs.id }}', 'Completed', 'service')">
+                                                            Mark as Completed
+                                                        </button>
+                                                    {% elif jobs.status == 'Completed' %}
+                                                        <button class="btn btn-warning" style="border-radius: 10px; padding: 8px 16px; font-size: 14px; width: auto;" onclick="changeStatus('{{ jobs.id }}', 'In Progress', 'service')">
+                                                            Mark as In Progress
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="row justify-content-end mt-20">
+                            <div class="col-auto">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="custom-pagination pagination">
+                                        <li class="custom-page-item page-item">
+                                            <a class="custom-page-link page-link" href="#">Previous</a>
+                                        </li>
+                                        <li class="custom-page-item page-item">
+                                            <a class="custom-page-link page-link" href="#">1</a>
+                                        </li>
+                                        <li class="custom-page-item page-item">
+                                            <a class="custom-page-link page-link" href="#">2</a>
+                                        </li>
+                                        <li class="custom-page-item page-item active" aria-current="page">
+                                            <a class="custom-page-link page-link" href="#">3</a>
+                                        </li>
+                                        <li class="custom-page-item page-item">
+                                            <a class="custom-page-link page-link" href="#">4</a>
+                                        </li>
+                                        <li class="custom-page-item page-item">
+                                            <a class="custom-page-link custom-page-item page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row justify-content-center">
+                        <div class="col-7">
+                            <div>
+                                <div class="bg-white p-5 rounded-3 d-flex justify-content-center align-items-center">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img src="{% static 'assets/img/dashboard/empty.png'%}" class="img-fluid mb-5" style="width:200px; height:200px" alt=""/>
+                                        <h3 class="text-24 fw-bold text-dark-300 m-2">Jobs Empty</h3>
+                                        <p class="fs-6 text-dark-200 text-center">Clients haven't made any purchases yet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- SkillSwap -->
+
+                <!-- Empty -->
+                <div class="tab-pane fade" id="nav-empty" role="tabpanel" aria-labelledby="nav-empty-tab" tabindex="0">
+                    <div class="tab-pane fade show active" id="nav-all-all" role="tabpanel" aria-labelledby="nav-all-tab" tabindex="0">
+                    {% if user_skillswap %}
+                    <!-- All -->
+                    <div>
+                        <div class="overflow-x-auto">
+                            <div class="w-100">
+                                <table class="w-100 dashboard-table">
+                                    <thead class="pb-3">
+                                        <tr>
+                                            <th scope="col" class="ps-4">SkillSwap Name</th>
+                                            <th scope="col">Skill Offered</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Client</th>
+                                            <th scope="col">Client Contact</th>
+                                            <th scope="col">Date of Purchase</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iterate through user's purchases and display them -->
+                                        {% for offer in user_skillswap %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex gap-3 align-items-center project-name">
+                                                    <div class="order-img">
+                                                        <img src="{{offer.skillswap_listing.image.url}}" alt=""/>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{% url 'skillswap_detail' offer.skillswap_listing.id %}" class="text-dark-200 project-link">{{ offer.skillswap_listing.nameofservice }}</a>
+                                                        <!-- Add more details as needed -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-dark-200">{{ offer.skill_offered }}</td>
+                                            <td>
+                                                <span class="status-badge in-progress">{{ offer.status }}</span>
+                                            </td>
+                                            <td class="text-dark-200">{{ offer.client_user }}</td>
+                                            <td class="text-dark-200">{{ offer.client_user.phoneNum }}</td>
+                                            <td class="text-dark-200">{{ offer.date|date:"d M, Y h:i A" }}</td>
+                                            <td>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                    {% if offer.status == 'Offered' %}
+                                                        <button class="dashboard-action-btn" onclick="changeStatus('{{ offer.id }}', 'Accepted', 'skillswap')" style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 50%;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                                                <path d="M0 0h24v24H0z" fill="none"/>
+                                                                <path d="M20 5.41L18.59 4 8 14.59 5.41 12 4 13.41l4 4L20 5.41z"/>
+                                                            </svg>
+                                                        </button>
+                                                        <button class="dashboard-action-btn" onclick="changeStatus('{{ offer.id }}', 'Rejected', 'skillswap')" style="background-color: #f44336; color: white; padding: 10px; border: none; border-radius: 50%;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                                                <path d="M0 0h24v24H0z" fill="none"/>
+                                                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                                                            </svg>
+                                                        </button>
+                                                    {% else %}
+                                                        <button class="dashboard-action-btn" onclick="changeStatus('{{ offer.id }}', 'Offered', 'skillswap')" style="background-color: #008CBA; color: white; padding: 8px 16px; font-size: 14px; width: auto; margin-right:18px;">
+                                                            Reset
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row justify-content-center">
+                        <div class="col-7">
+                            <div>
+                                <div class="bg-white p-5 rounded-3 d-flex justify-content-center align-items-center">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img src="{% static 'assets/img/dashboard/empty.png'%}" class="img-fluid mb-5" style="width:200px; height:200px" alt=""/>
+                                        <h3 class="text-24 fw-bold text-dark-300 m-2">SkillSwap Empty</h3>
+                                        <p class="fs-6 text-dark-200 text-center">Students haven't made any offers yet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                </div>
+                <!-- Complete -->
+
+                <!-- Close -->
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    function changeStatus(jobId, newStatus, currentTab) {
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'change_status' %}',
+            data: {
+                'job_id': jobId,
+                'new_status': newStatus,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Update the UI as needed
+                if (currentTab === 'service') {
+                    $('#nav-all').load(window.location.href + ' #nav-all');
+                } else if (currentTab === 'skillswap') {
+                    $('#nav-all-all').load(window.location.href + ' #nav-all-all');
+                }
+            },
+            error: function(xhr, errmsg, err) {
+                // Handle errors if any
+                console.log(xhr.status + ": " + xhr.responseText); // Log the error
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}

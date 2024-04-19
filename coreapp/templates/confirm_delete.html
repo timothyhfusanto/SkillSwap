@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete</title>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 50px auto; background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h1 style="color: #4CAF50; text-align: center;">Confirm Deletion</h1>
+        <div style="margin-top: 20px; text-align: center;">
+            <p style="color: #333; font-size: 18px;">Are you sure you want to delete "{{ listing.nameofservice }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" style="background-color: #FF5733; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px; margin: 0 auto;">Yes, Delete</button>
+                {% if listing.listing_type == "service" %}
+                    <a href="{% url 'service_detail' listing.id %}" style="color: #666; text-decoration: none; margin: 0 auto;">Cancel</a>
+                {% elif listing.listing_type == "skillswap" %}
+                    <a href="{% url 'skillswap_detail' listing.id %}" style="color: #666; text-decoration: none; margin: 0 auto;">Cancel</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

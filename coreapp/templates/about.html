@@ -1,0 +1,205 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+      <!-- Breadcrumb -->
+      <section
+        class="w-breadcrumb-area"
+        style="
+          background: url({%static 'assets/img/about/about1.jpg'%}) no-repeat
+            center center/cover;
+        "
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-auto">
+              <div
+                class="position-relative z-2"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="linear"
+              >
+                <h2 class="section-title-light mb-2">About</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb w-breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      About
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Breadcrumb End -->
+
+      <!-- Latest Features -->
+
+      <!-- Latest Features End -->
+
+      <!-- About Company -->
+      <section
+        class="about-company position-relative pt-110 pb-150 bg-offWhite"
+      >
+        <div class="container mx-auto">
+          <div class="row justify-content-center g-5">
+            <div class="col-lg-6">
+              <div>
+                <p class="section-subtitle fw-semibold mb-2">About SkillSwap</p>
+                <h2 class="section-title fw-bold mb-3">
+                  Connecting With Students Through Skill Exchange
+                </h2>
+                <p class="about-desc">
+                  SkillSwap is a vibrant online platform designed to bring together students from Campus to exchange their skills and knowledge. Whether you're passionate about web development, graphic design, or language learning, SkillSwap provides a dynamic environment where students can connect, collaborate, and learn from each other.
+                  <br>
+                  <br>
+                  Our mission is to create a community where students can harness their talents, expand their horizons, and build meaningful connections with like-minded individuals. With a diverse range of categories and an intuitive interface, SkillSwap makes it easy for students to find the help they need and share their expertise with others.
+                </p>
+                <ul class="about-list py-4 d-flex flex-wrap">
+                  <li
+                    class="d-flex gap-2 align-items-center fst-italic about-list-item py-2"
+                  >
+                    <svg
+                      width="19"
+                      height="19"
+                      viewBox="0 0 19 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="9.5" cy="9.50037" r="9.5" fill="#22BE0D" />
+                      <path
+                        d="M7.7291 10.0754C7.99366 9.77772 8.24647 9.48543 8.51103 9.19856C9.71039 7.89408 11.0185 6.69245 12.5177 5.68027C12.6735 5.57472 12.8352 5.47458 12.9998 5.37715C13.0527 5.34738 13.1203 5.32302 13.1821 5.32302C13.5201 5.31761 13.8582 5.32032 14.1933 5.32032C14.2991 5.32032 14.3844 5.35279 14.4226 5.44752C14.4608 5.53953 14.4314 5.61802 14.352 5.68568C12.9792 6.8386 11.8475 8.18096 10.7716 9.56662C9.78094 10.8413 8.86378 12.162 8.00248 13.5179C7.97308 13.5667 7.93487 13.6181 7.88489 13.6478C7.77907 13.7155 7.65855 13.6776 7.57918 13.5612C7.44689 13.3664 7.32343 13.1661 7.18233 12.9767C6.3563 11.8806 5.5244 10.7845 4.69543 9.69112C4.66309 9.65052 4.62782 9.60993 4.59842 9.56662C4.53963 9.48002 4.54257 9.3853 4.619 9.31493C4.83947 9.10925 5.06582 8.90356 5.29217 8.70058C5.38035 8.6221 5.47442 8.62751 5.59201 8.70058C5.95652 8.93333 6.32103 9.16879 6.6826 9.40154C7.02947 9.62616 7.37634 9.84809 7.7291 10.0754Z"
+                        fill="white"
+                      />
+                    </svg>
+                    Connect With Freelancers
+                  </li>
+                  <li
+                    class="d-flex gap-2 align-items-center fst-italic about-list-item py-2"
+                  >
+                    <svg
+                      width="19"
+                      height="19"
+                      viewBox="0 0 19 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="9.5" cy="9.50037" r="9.5" fill="#22BE0D" />
+                      <path
+                        d="M7.7291 10.0754C7.99366 9.77772 8.24647 9.48543 8.51103 9.19856C9.71039 7.89408 11.0185 6.69245 12.5177 5.68027C12.6735 5.57472 12.8352 5.47458 12.9998 5.37715C13.0527 5.34738 13.1203 5.32302 13.1821 5.32302C13.5201 5.31761 13.8582 5.32032 14.1933 5.32032C14.2991 5.32032 14.3844 5.35279 14.4226 5.44752C14.4608 5.53953 14.4314 5.61802 14.352 5.68568C12.9792 6.8386 11.8475 8.18096 10.7716 9.56662C9.78094 10.8413 8.86378 12.162 8.00248 13.5179C7.97308 13.5667 7.93487 13.6181 7.88489 13.6478C7.77907 13.7155 7.65855 13.6776 7.57918 13.5612C7.44689 13.3664 7.32343 13.1661 7.18233 12.9767C6.3563 11.8806 5.5244 10.7845 4.69543 9.69112C4.66309 9.65052 4.62782 9.60993 4.59842 9.56662C4.53963 9.48002 4.54257 9.3853 4.619 9.31493C4.83947 9.10925 5.06582 8.90356 5.29217 8.70058C5.38035 8.6221 5.47442 8.62751 5.59201 8.70058C5.95652 8.93333 6.32103 9.16879 6.6826 9.40154C7.02947 9.62616 7.37634 9.84809 7.7291 10.0754Z"
+                        fill="white"
+                      />
+                    </svg>
+                    Affordable Service
+                  </li>
+                  <li
+                    class="d-flex gap-2 align-items-center fst-italic about-list-item py-2"
+                  >
+                    <svg
+                      width="19"
+                      height="19"
+                      viewBox="0 0 19 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="9.5" cy="9.50037" r="9.5" fill="#22BE0D" />
+                      <path
+                        d="M7.7291 10.0754C7.99366 9.77772 8.24647 9.48543 8.51103 9.19856C9.71039 7.89408 11.0185 6.69245 12.5177 5.68027C12.6735 5.57472 12.8352 5.47458 12.9998 5.37715C13.0527 5.34738 13.1203 5.32302 13.1821 5.32302C13.5201 5.31761 13.8582 5.32032 14.1933 5.32032C14.2991 5.32032 14.3844 5.35279 14.4226 5.44752C14.4608 5.53953 14.4314 5.61802 14.352 5.68568C12.9792 6.8386 11.8475 8.18096 10.7716 9.56662C9.78094 10.8413 8.86378 12.162 8.00248 13.5179C7.97308 13.5667 7.93487 13.6181 7.88489 13.6478C7.77907 13.7155 7.65855 13.6776 7.57918 13.5612C7.44689 13.3664 7.32343 13.1661 7.18233 12.9767C6.3563 11.8806 5.5244 10.7845 4.69543 9.69112C4.66309 9.65052 4.62782 9.60993 4.59842 9.56662C4.53963 9.48002 4.54257 9.3853 4.619 9.31493C4.83947 9.10925 5.06582 8.90356 5.29217 8.70058C5.38035 8.6221 5.47442 8.62751 5.59201 8.70058C5.95652 8.93333 6.32103 9.16879 6.6826 9.40154C7.02947 9.62616 7.37634 9.84809 7.7291 10.0754Z"
+                        fill="white"
+                      />
+                    </svg>
+                    Exchange Skills
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- About Company End -->
+
+      <!-- Faq -->
+      <section class="pb-80 bg-offWhite">
+        <div class="container">
+          <div class="row justify-content-center mb-40">
+            <div class="col-auto">
+              <div class="text-center">
+                <h2 class="section-title fw-bold mb-3">Frequently Asked Questions</h2>
+                <p class="section-desc">Explore answers to common questions about our platform.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="faq-accordions">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        How can I join SkillSwap as a student?
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <p>
+                          To join SkillSwap as a student, simply sign up using your email address and create your profile. Make sure to verify your email to access all features available exclusively to students.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        How do I find available projects on SkillSwap?
+                      </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <p>
+                          As a student, you can browse available projects by logging into your SkillSwap account and navigating to the Projects section. Filter projects by category or search for specific keywords to find projects that match your skills and interests.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        How do I get paid for completing a project on SkillSwap?
+                      </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <p>
+                          SkillSwap offers various payment options for students, including bank transfer and PayPal. Once you complete a project, the client will release payment according to the agreed terms. Make sure to update your payment preferences in your account settings to receive payments seamlessly.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        How can I report a problem with a project or client?
+                      </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <p>
+                          If you encounter any issues with a project or client on SkillSwap, you can report them to our support team. Simply navigate to the Help Center and submit a ticket detailing the problem you're experiencing. Our team will investigate the issue and provide assistance to resolve it promptly.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Faq End -->
+    </main>
+{% endblock %}

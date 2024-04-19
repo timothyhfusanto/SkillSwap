@@ -1,0 +1,115 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main Start -->
+    <main>
+      <!-- Breadcrumb -->
+      <section
+        class="w-breadcrumb-area"
+        style="
+          background: url({% static 'assets/img/common/com1.jpg' %}) no-repeat
+            center center/cover;
+        "
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-auto">
+              <div
+                class="position-relative z-2"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="linear"
+              >
+                <h2 class="section-title-light mb-2">Sign In</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb w-breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Login
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Login Form -->
+      <section class="py-110 bg-offWhite">
+        <div class="container">
+          <div class="bg-white rounded-3 p-3">
+            <div class="row g-4">
+              <div class="col-lg-6 p-3 p-lg-5">
+                <div class="mb-40">
+                  <h2 class="section-title mb-2">Log in</h2>
+                  <p class="section-desc">Welcome to SkillSwap</p>
+                </div>
+                  {% if messages %}
+                    {% for message in messages %}
+                    <div style="display:flex; align-items:center; justify-content:center;">
+                      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                  <form method="POST">
+                  {% csrf_token %}
+                  <div class="form-container d-flex flex-column gap-4">
+                    <div class="form-input">
+                      <label for="email" class="form-label"
+                        >Email <span class="text-lime-300">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="example@gmail.com"
+                        class="form-control shadow-none"
+                        autofocus
+                      />
+                    </div>
+                    <div class="form-input">
+                      <label for="password" class="form-label"
+                        >Password <span class="text-lime-300">*</span></label
+                      >
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="********"
+                        class="form-control shadow-none"
+                      />
+                    </div>
+                    <div class="d-grid mt-3">
+                      <button class="w-btn-secondary-lg" type="submit">Log In</button>
+                    </div>
+                  </div>
+                </form>
+              
+                <div class="mt-4">
+                  <p class="text-center form-text">
+                    Don’t have an account ?
+                    <a href="/accounts/sign-up"><strong style="color:green; text-decoration:underline">Create Account</strong> </a>
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="login-img">
+                  <img
+                    src="{% static 'assets/img/others/other1.jpg' %}"                    
+                    class="img-fluid w-100"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Login Form End -->
+    </main>
+    <!-- Main End -->
+{% endblock %}

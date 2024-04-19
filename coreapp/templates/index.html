@@ -1,0 +1,285 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <!-- Main Start -->
+    <main>
+        <!-- Hero Start-->
+        <section class="hero-one" style="
+          background: url({% static 'assets/img/hero/hero1.jpg' %}) no-repeat center
+            center/cover;
+        ">
+            <div class="container">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div style="display:flex; align-items:center; justify-content:center;">
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-12 col-xl-6 mt-n5">
+                        <div>
+                            <h1 class="hero-one-title fw-bold mb-4" data-aos="fade-up" data-aos-duration="1000"
+                                data-aos-easing="linear">
+                                Find Affordable
+                                <span class="highlighted-text"> Student Freelancer </span>
+                                Quick and Easy
+                            </h1>
+                            <a href="/service_listing">
+                                <button class="hero-form-btn mt-4">
+                                    Browse
+                                    <svg
+                                        width="14"
+                                        height="10"
+                                        viewBox="0 0 14 10"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M9 9L13 5M13 5L9 1M13 5L1 5"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </button>
+                            </a>
+                                <!-- <form>
+                                    <div class="hero-form-wrapper bg-white d-flex position-relative">
+                                        <div>
+                                            <select class="form-select shadow-none">
+                                                <option value="0" selected>All Categories</option>
+                                                <option value="1">Animation</option>
+                                                <option value="2">Web Design</option>
+                                                <option value="3">Graphics</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control shadow-none"
+                                                placeholder="Search for any service..." />
+                                            <button class="hero-form-btn position-absolute">
+                                                <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z"
+                                                        stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                    <path d="M18 17L14 13" stroke="#F2F2F2" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form> -->
+                        </div>
+                    </div>
+
+                    <div class="col-12" style="margin-top:50px;">
+                        <h2 class="text-white fw-bold d-inline">Try SkillSwap:</h2>
+                        <a href="{% url 'skillswap_listing' %}" class="btn btn-success ms-2" style="background-color: #7ED957; margin-bottom:8px;">Explore SkillSwap</a>
+                        <p class="text-white">Explore a platform where you can exchange skills with other students.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Hero End -->
+
+        <!-- Featured Categories -->
+        <section class="bg-offWhite py-110">
+            <div class="container">
+                <div class="row mb-40 justify-content-between align-items-end">
+                    <div class="col-md-auto">
+                        <h2 class="fw-bold section-title">Featured Categories</h2>
+                        <p class="section-desc">Get some Inspiration from our students' skills</p>
+                    </div>
+                    <div class="col-md-auto position-relative mt-30 mt-md-0">
+                        <div class="d-flex gap-3">
+                            <button class="featurePrev swiper-prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                </svg>
+                            </button>
+                            <button class="featureNext swiper-next">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="position-relative">
+                    <div class="swiper featureCategory">
+                        <div class="swiper-wrapper">
+                            {% for category in categories %}
+                            <div class="swiper-slide">
+                                <div class="feature-category-card bg-white">
+                                    <img src="{{category.image.url}}" style="width:153px; height:100px; border-radius:12px" class="mb-4" alt=""/>
+                                    <h3 class="feature-category-link fw-semibold">
+                                        <a href="/service_listing">{{ category.skilltagname }}</a>
+                                    </h3>
+                                    {% for count_item in tag_count %}
+                                        {% if count_item.0 == category.skilltagname %}
+                                            <p class="feature-category-desc fs-6">{{ count_item.1 }} Skills</p>
+                                        {% endif %}
+                                    {% endfor %}                                
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Featured Categories End -->
+
+        <!-- Our Services -->
+        <section class="py-110">
+            <div class="container">
+                <div class="row mb-16 justify-content-between align-items-end">
+                    <div class="col-md-auto">
+                        <div>
+                            <h2 class="fw-bold section-title">Our Services</h2>
+                            <p class="section-desc">
+                                Get some Inspiration from our students' skills
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-auto position-relative mt-30 mt-md-0">
+                        <div class="d-flex gap-3">
+                            <button class="servicePrev swiper-prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                </svg>
+                            </button>
+                            <button class="serviceNext swiper-next">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper serviceSlider">
+                    <div class="swiper-wrapper py-4">
+                        {% for service in services %}
+                        <article class="swiper-slide">
+                            <div class="service-card bg-white">
+                                <div class="position-relative">
+                                    <img src="{{ service.image.url }}" style="width:253px; height:200px" class="recently-view-card-img w-100" alt="" />
+                                </div>
+                                <div class="service-card-content">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <h3 class="service-card-price fw-bold">${{service.hourlyCharge}}</h3>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15"
+                                                viewBox="0 0 16 15" fill="none">
+                                                <path
+                                                    d="M16 5.95909C15.8855 6.07153 15.7709 6.21207 15.6564 6.32451C14.4537 7.36454 13.2511 8.37646 12.0484 9.38838C11.9339 9.47271 11.9053 9.55704 11.9625 9.69758C12.3348 11.2717 12.707 12.8739 13.0793 14.448C13.1365 14.6448 13.1079 14.8134 12.9361 14.9258C12.7643 15.0383 12.5925 15.0102 12.4207 14.9258C10.989 14.0826 9.58587 13.2393 8.15415 12.396C8.03961 12.3117 7.9537 12.3117 7.83917 12.396C6.43607 13.2393 5.00435 14.0826 3.60126 14.8977C3.48672 14.9821 3.34355 15.0102 3.20038 14.9821C2.9713 14.9258 2.85676 14.701 2.91403 14.448C3.14311 13.5204 3.34355 12.5928 3.57262 11.6652C3.74443 10.9906 3.8876 10.316 4.05941 9.64136C4.08805 9.52893 4.05941 9.47271 3.97351 9.38838C2.74222 8.34835 1.53957 7.30832 0.308291 6.26829C0.251022 6.21207 0.193753 6.18396 0.165118 6.12775C0.0219457 6.01531 -0.0353233 5.87477 0.0219457 5.678C0.0792147 5.50935 0.222387 5.42502 0.394194 5.39691C0.651905 5.36881 0.909615 5.3407 1.19596 5.3407C2.36998 5.22826 3.54399 5.14393 4.74664 5.0315C4.97572 5.00339 5.20479 4.97528 5.43387 4.97528C5.54841 4.97528 5.60567 4.91906 5.63431 4.83474C6.2929 3.31685 6.92286 1.82708 7.58146 0.309198C7.66736 0.140545 7.75326 0.0281089 7.9537 0C8.18278 0.0562179 8.32595 0.140545 8.41186 0.365416C8.75547 1.15247 9.09908 1.96762 9.4427 2.75467C9.75768 3.4574 10.044 4.18823 10.359 4.89095C10.3876 4.97528 10.4449 5.0315 10.5594 5.0315C11.4757 5.11583 12.3921 5.17204 13.337 5.25637C14.0815 5.31259 14.8546 5.39691 15.5991 5.45313C15.7996 5.48124 15.9141 5.59368 16 5.76233C16 5.81855 16 5.90288 16 5.95909Z"
+                                                    fill="currentColor" />
+                                            </svg>
+                                            <span class="service-card-rating">
+                                                {% for tag in average_tag %}
+                                                    {% if tag.0 == service.id %}
+                                                        {{ tag.1 }}
+                                                    {% endif %}
+                                                {% endfor %}      
+                                                {% for count in review_count %}
+                                                    {% if count.0 == service.id %}
+                                                        ({{ count.1 }})
+                                                    {% endif %}
+                                                {% endfor %}        
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h3 class="service-card-title fw-semibold">
+                                        <a href="{% url 'service_detail' service.id %}">
+                                            {{service.nameofservice}}
+                                        </a>
+                                    </h3>
+                                    <div class="d-flex align-items-center service-card-author">
+                                        <img src="{{ service.student_user.image.url }}" class="service-card-author-img"
+                                            alt="" />
+                                        <a href="{% url 'freelancer_details' service.student_user.id %}" class="service-card-author-name">{{service.student_user.name}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Our Services -->
+
+        <!-- Top Sellers -->
+        <section class="top-sellers-area bg-offWhite py-110">
+            <div class="container">
+                <div class="row justify-content-between align-items-end mb-40">
+                    <div class="col-auto">
+                        <h2 class="fw-bold section-title">Top Freelancers</h2>
+                        <p class="section-desc">Get some Inspiration from our students' skills</p>
+                    </div>
+                </div>
+                <div class="row row-gap-4 justify-content-center row-cols-md-2 row-cols-lg-3 row-cols-xl-5">
+                    {% for pro in user_ratings %}
+                    {% if pro.service_listing__student_user %}
+                    <article data-aos="fade-up" data-aos-duration="1000" data-aos-easing="linear">
+                        <div class="bg-white top-seller-card position-relative">
+                            <div class="job-type-badge position-absolute d-flex flex-column gap-2">
+                                <p class="job-type-badge-tertiary">Top Seller</p>
+                            </div>
+                            
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <div class="seller-profile-img mb-4">
+                                    <img src="/media/{{pro.image_student}}" alt="" />
+                                </div>
+                                {{pro.image_student.url}}
+
+                                <h3 class="top-seller-name fw-bold">{{pro.student_user_name}}</h3>
+                                <div class="top-seller-rating mb-4">
+                                    <p class="d-flex align-items-center top-seller-rating">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11.1141 4.65628C11.0407 4.42385 10.8406 4.25929 10.6048 4.23731L7.38803 3.93649L6.11676 0.870622C6.0229 0.645376 5.80934 0.5 5.57163 0.5C5.33392 0.5 5.12027 0.645376 5.02701 0.870622L3.75574 3.93649L0.538508 4.23731C0.302669 4.25973 0.102963 4.42429 0.0291678 4.65628C-0.0442024 4.8887 0.0235566 5.14364 0.201923 5.30478L2.63351 7.5011L1.91656 10.7539C1.8641 10.993 1.95422 11.2403 2.14687 11.3838C2.25042 11.4613 2.37208 11.5 2.49417 11.5C2.59908 11.5 2.70407 11.4713 2.79785 11.4135L5.57163 9.70504L8.3449 11.4135C8.54835 11.5387 8.80417 11.5272 8.99639 11.3838C9.18904 11.2403 9.27916 10.993 9.22671 10.7539L8.50975 7.5011L10.9413 5.30478C11.1196 5.14364 11.1875 4.88923 11.1141 4.65628Z"
+                                                fill="currentColor" />
+                                        </svg>
+                                        {{pro.average}} <span class="top-seller-review">({{pro.rating_count}} Reviews)</span>
+                                    </p>
+                                </div>
+                                <a href="{% url 'freelancer_details' pro.service_listing__student_user %}" class="w-btn-primary-lg">
+                                    View Profile
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10"
+                                        fill="none">
+                                        <path d="M9 9L13 5M13 5L9 1M13 5L1 5" stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg></a>
+                            </div>
+                        </div>
+                    </article>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- Top Sellers End -->
+       
+    </main>
+    <!-- Main End -->
+
+{% endblock %}

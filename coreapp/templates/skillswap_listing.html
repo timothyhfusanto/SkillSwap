@@ -1,0 +1,165 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+      <!-- Breadcrumb -->
+      <section
+        class="w-breadcrumb-area"
+        style="
+          background: url({% static 'assets/img/common/com2.jpg'%})  no-repeat
+            center center/cover;
+        "
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-auto">
+              <div
+                class="position-relative z-2"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="linear"
+              >
+                <h2 class="section-title-light mb-2">SkillSwap</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb w-breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      SkillSwap
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Breadcrumb End -->
+
+      <!-- Services  -->
+      <section class="py-110 bg-offWhite">
+        <div class="container">
+          <div class="bg-white" style="padding:10px; border-radius:30px" >
+            <div style="display:flex">
+              <input type="text" class="form-control shadow-none" style="border:none; font-size:20px" id="skillswap-search-input"
+                  placeholder="Search for skillswap..." />
+              <button class="hero-form-btn" id="skillswap-search-btn">
+                  <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                          d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z"
+                          stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                      <path d="M18 17L14 13" stroke="#F2F2F2" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Search
+              </button>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-40">
+            <div class="col-xl-auto">
+              <div class="d-flex flex-wrap gap-3">
+                <!-- Category -->
+                <!-- <form id="filterForm" method="GET">
+                  <select id="skillTagSelect" name="skill_tag">
+                      <option value="all">All Categories</option>
+                      {% for skill_tag in skill_tags %}
+                          <option value="{{ skill_tag.id }}">{{ skill_tag.skilltagname }}</option>
+                      {% endfor %}
+                  </select>
+                  <button type="submit">Filter</button>
+                </form> -->
+                
+              </div>
+            </div>
+          </div>
+          <!-- Content -->
+          <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab" tabindex="0">
+                  <div class="row row-cols-1 row-cols-xl-5 row-cols-lg-3 row-cols-md-2" id="skillswap-listings-container" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                      {% for listing in skill_swap_listings %}
+                      <article class="col mb-4 skillswap-card" style="height: 200%; display:inline-block">
+                          <div class="service-card bg-white">
+                              <div class="position-relative">
+                                <img
+                                    src="{{ listing.image.url }}"
+                                    class="recently-view-card-img w-100"
+                                    style="width:253px; height:200px"
+                                    alt=""
+                                  />
+                              </div>
+                              <div class="service-card-content">
+                                  <div class="d-flex align-items-center justify-content-between">
+                                      <div>
+                                          <h3 class="service-card-price fw-bold">{{ listing.skill_offered }}</h3>
+                                      </div>
+                                      <div class="d-flex align-items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15"
+                                            viewBox="0 0 16 15" fill="none">
+                                            <path
+                                                d="M16 5.95909C15.8855 6.07153 15.7709 6.21207 15.6564 6.32451C14.4537 7.36454 13.2511 8.37646 12.0484 9.38838C11.9339 9.47271 11.9053 9.55704 11.9625 9.69758C12.3348 11.2717 12.707 12.8739 13.0793 14.448C13.1365 14.6448 13.1079 14.8134 12.9361 14.9258C12.7643 15.0383 12.5925 15.0102 12.4207 14.9258C10.989 14.0826 9.58587 13.2393 8.15415 12.396C8.03961 12.3117 7.9537 12.3117 7.83917 12.396C6.43607 13.2393 5.00435 14.0826 3.60126 14.8977C3.48672 14.9821 3.34355 15.0102 3.20038 14.9821C2.9713 14.9258 2.85676 14.701 2.91403 14.448C3.14311 13.5204 3.34355 12.5928 3.57262 11.6652C3.74443 10.9906 3.8876 10.316 4.05941 9.64136C4.08805 9.52893 4.05941 9.47271 3.97351 9.38838C2.74222 8.34835 1.53957 7.30832 0.308291 6.26829C0.251022 6.21207 0.193753 6.18396 0.165118 6.12775C0.0219457 6.01531 -0.0353233 5.87477 0.0219457 5.678C0.0792147 5.50935 0.222387 5.42502 0.394194 5.39691C0.651905 5.36881 0.909615 5.3407 1.19596 5.3407C2.36998 5.22826 3.54399 5.14393 4.74664 5.0315C4.97572 5.00339 5.20479 4.97528 5.43387 4.97528C5.54841 4.97528 5.60567 4.91906 5.63431 4.83474C6.2929 3.31685 6.92286 1.82708 7.58146 0.309198C7.66736 0.140545 7.75326 0.0281089 7.9537 0C8.18278 0.0562179 8.32595 0.140545 8.41186 0.365416C8.75547 1.15247 9.09908 1.96762 9.4427 2.75467C9.75768 3.4574 10.044 4.18823 10.359 4.89095C10.3876 4.97528 10.4449 5.0315 10.5594 5.0315C11.4757 5.11583 12.3921 5.17204 13.337 5.25637C14.0815 5.31259 14.8546 5.39691 15.5991 5.45313C15.7996 5.48124 15.9141 5.59368 16 5.76233C16 5.81855 16 5.90288 16 5.95909Z"
+                                                fill="currentColor" />
+                                        </svg>
+                                        <span class="service-card-rating">
+                                            {% for tag in average_tag %}
+                                                {% if tag.0 == listing.id %}
+                                                    {{ tag.1 }}
+                                                {% endif %}
+                                            {% endfor %}      
+                                            {% for count in review_count %}
+                                                {% if count.0 == listing.id %}
+                                                    ({{ count.1 }})
+                                                {% endif %}
+                                            {% endfor %}        
+                                        </span>
+                                    </div>
+                                  </div>
+
+                                  <h3 class="service-card-title fw-semibold">
+                                      <a href="{% url 'skillswap_detail' listing.id %}">{{ listing.nameofservice }}</a>
+                                  </h3>
+
+                                  <div class="d-flex align-items-center service-card-author">
+                                    <img src="{{ listing.student_user.image.url }}" class="service-card-author-img"
+                                            alt="" />
+                                      {{ listing.student_user.name }} <br/>
+                                      Skill Wanted: {{ listing.optional_skill_wanted}}
+
+                                  </div>
+                                  {% for tag in listing.relatedskilltag.all %}
+                                      <span class="badge bg-primary">{{ tag.skilltagname }}</span>
+                                    {% endfor %}
+                              </div>
+                          </div>
+                      </article>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+        </div>
+      </section>
+      <!-- Services  End -->
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const searchInput = document.getElementById('skillswap-search-input');
+          const searchBtn = document.getElementById('skillswap-search-btn');
+          const skillswapListings = document.querySelectorAll('.skillswap-card');
+
+          searchBtn.addEventListener('click', function () {
+              const searchText = searchInput.value.toLowerCase();
+
+              skillswapListings.forEach(function (listing) {
+                  const title = listing.querySelector('.service-card-title a').textContent.toLowerCase();
+
+                  if (title.includes(searchText)) {
+                      listing.style.display = 'inline-block';
+                  } else {
+                      listing.style.display = 'none';
+                  }
+              });
+          });
+      });
+  </script>
+{% endblock %}

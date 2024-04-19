@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Update Profile</title>
+	</head>
+	<body>
+		<h1>Update Profile</h1>
+		<form action="" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<img src="{{profile.image.url}}"/>
+			<p>{{form.image}}</p>
+			<p>{{form.name}}</p>
+			<p>{{form.age}}</p>
+			<p>{{form.academicYear}}</p>
+			<p>{{form.phoneNum}}</p>
+			<button type="submit">Save changes</button>
+		</form>
+		{{form.errors}}
+	</body>
+</html>

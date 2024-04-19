@@ -1,0 +1,31 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name="home"),
+    path('dashboard/', views.dashboard, name="dashboard"),
+    path('profile/', views.profile, name="profile"),
+    path('create_listing/', views.create_service_listing, name="create_listing"),
+    path('create_skillswap/', views.create_skill_swap_listing, name="create_skillswap"),
+    path('manage_listing/', views.manage_listing, name="manage_listing"),
+    path('service_listing/', views.view_service_listings, name="service_listing"),
+    path('skillswap_listing/', views.view_skill_swap_listings, name="skillswap_listing"),
+    path('service_detail/<uuid:listing_id>/', views.view_service_detail, name="service_detail"),
+    path('skillswap_detail/<uuid:listing_id>/', views.view_skillswap_detail, name="skillswap_detail"),
+    path('change_password/', views.change_password, name="change_password"),
+    path('my_order/', views.view_my_order, name="my_order"),
+    path('my_job/', views.view_my_job, name="my_job"),
+    path('about/', views.about_us, name="about"),
+    path('create_review/<uuid:listing_id>/', views.create_review, name="create_review"),
+    path('service_detail/<uuid:listing_id>/<int:review_id>', views.delete_review_service, name="delete_review_service"),
+    path('skillswap_detail/<uuid:listing_id>/<int:review_id>', views.delete_review_skillswap, name="delete_review_skillswap"),
+    path('freelancer_details/<int:user_id>', views.view_freelancer, name="freelancer_details"),
+    path('service/<uuid:listing_id>/purchase/', views.purchase_listing, name='purchase_listing'),
+    path('skillswap/<uuid:listing_id>/offer/', views.offer_skillswap, name='offer_skillswap'),
+    path('thankyou/', views.thank_you, name='thank_you'),
+    path('thankyou_skillswap/', views.thank_you_skillswap, name='thank_you_skillswap'),
+    path('change_status_service_listing/', views.change_status, name='change_status'),
+    path('service/delete/<uuid:listing_id>/', views.delete_listing, name='delete_listing'),
+    path('service/<uuid:listing_id>/edit/', views.edit_service, name='edit_service'),
+    path('skillswap/<uuid:listing_id>/edit/', views.edit_skillswap, name='edit_skillswap'),
+]
